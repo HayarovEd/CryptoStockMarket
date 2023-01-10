@@ -9,5 +9,6 @@ data class CryptoListState(
     val error: String? = null,
     val searchQuery: String = "",
     val coinOrder: CoinOrder = CoinOrder.Symbol(OrderType.Ascending),
-    val isloading: Boolean = false
+    val isLoading: Boolean = false,
+    val isOrderSectionVisible: Boolean = false
 )

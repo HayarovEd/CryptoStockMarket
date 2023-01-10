@@ -24,14 +24,14 @@ fun OrderSection(
                 selected = coinOrder is CoinOrder.Name,
                 onSelect = { onOrderChange(CoinOrder.Name(coinOrder.orderType)) }
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(4.dp))
             DefaultRadioButton(
                 text = "Обозначание",
                 selected = coinOrder is CoinOrder.Symbol,
                 onSelect = { onOrderChange(CoinOrder.Symbol(coinOrder.orderType)) }
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -42,7 +42,7 @@ fun OrderSection(
                     onOrderChange(coinOrder.copy(OrderType.Ascending))
                 }
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(4.dp))
             DefaultRadioButton(
                 text = "По убыванию",
                 selected = coinOrder.orderType is OrderType.Descending,

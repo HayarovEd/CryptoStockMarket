@@ -10,7 +10,6 @@ import com.edurda77.cryptostockmarket.domain.util.CoinOrder
 import com.edurda77.cryptostockmarket.domain.util.OrderType
 import com.edurda77.cryptostockmarket.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Delay
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -45,6 +44,11 @@ class CryptoListViewModel @Inject constructor(private val getCoins: GetCoins) : 
                     search = ""
                 )
             }
+            is CryptoCoinsEvent.ToggleOrderSection -> {
+                state = state.copy(
+                    isOrderSectionVisible = !state.isOrderSectionVisible
+                )
+            }
         }
     }
 
@@ -54,7 +58,7 @@ class CryptoListViewModel @Inject constructor(private val getCoins: GetCoins) : 
         search: String = state.searchQuery.lowercase()
     ) {
         getCoinsJob?.cancel()
-        state = state.copy(isloading = true)
+        state = state.copy(isLoading = true)
         viewModelScope.launch {
             getCoinsJob =
                 getCoins.invoke(coinOrder = coinOrder, fetchFromRemote = isRefresh, query = search)
@@ -62,14 +66,14 @@ class CryptoListViewModel @Inject constructor(private val getCoins: GetCoins) : 
                         state = when (result) {
                             is Resource.Success -> {
                                 state.copy(
-                                    isloading = false,
+                                    isLoading = false,
                                     cryptoCoins = result.data ?: emptyList(),
                                     coinOrder = coinOrder
                                 )
                             }
                             is Resource.Error -> {
                                 state.copy(
-                                    isloading = false,
+                                    isLoading = false,
                                     error = result.message
                                 )
                             }

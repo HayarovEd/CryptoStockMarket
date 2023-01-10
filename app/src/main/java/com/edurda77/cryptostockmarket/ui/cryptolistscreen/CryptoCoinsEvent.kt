@@ -6,4 +6,5 @@ sealed class CryptoCoinsEvent {
     data class Order(val coinOrder: CoinOrder): CryptoCoinsEvent()
     data class OnSearch(val query:String) : CryptoCoinsEvent()
     object Refresh: CryptoCoinsEvent()
+    object ToggleOrderSection: CryptoCoinsEvent()
 }
