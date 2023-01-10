@@ -12,10 +12,12 @@ import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.edurda77.cryptostockmarket.R
+import com.edurda77.cryptostockmarket.ui.theme.md_theme_light_inversePrimary
 import com.edurda77.cryptostockmarket.ui.theme.md_theme_light_primary
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -46,12 +48,12 @@ fun CoinListingScreen(
                     .padding(top=16.dp, start = 4.dp)
                     .weight(5f),
                 placeholder = {
-                    Text(text = "Search...")
-                },
+                    Text(text = stringResource(R.string.search))
+        },
                 maxLines = 1,
                 singleLine = true,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = md_theme_light_primary,
+                    focusedBorderColor = md_theme_light_inversePrimary,
                     unfocusedBorderColor = md_theme_light_primary)
             )
             IconButton(
@@ -64,7 +66,8 @@ fun CoinListingScreen(
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_baseline_filter_list_24),
-                    contentDescription = "Сортировка",
+                    contentDescription = stringResource(R.string.sort),
+                    tint = md_theme_light_inversePrimary
                 )
             }
         }

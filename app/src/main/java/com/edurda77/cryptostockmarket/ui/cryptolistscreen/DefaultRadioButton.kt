@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.edurda77.cryptostockmarket.ui.theme.md_theme_light_inversePrimary
 
 @Composable
 fun DefaultRadioButton(
@@ -27,7 +28,7 @@ fun DefaultRadioButton(
             selected = selected,
             onClick = onSelect,
             colors = RadioButtonDefaults.colors(
-                selectedColor = MaterialTheme.colors.primary,
+                selectedColor = md_theme_light_inversePrimary,
                 unselectedColor = MaterialTheme.colors.onBackground
             )
         )

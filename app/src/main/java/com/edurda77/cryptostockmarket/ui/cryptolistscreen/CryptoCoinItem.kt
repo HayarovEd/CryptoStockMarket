@@ -1,6 +1,5 @@
 package com.edurda77.cryptostockmarket.ui.cryptolistscreen
 
-import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -13,12 +12,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.edurda77.cryptostockmarket.domain.entities.Coin
+import com.edurda77.cryptostockmarket.ui.theme.md_theme_light_inversePrimary
 import com.edurda77.cryptostockmarket.ui.theme.md_theme_light_primary
-import com.edurda77.cryptostockmarket.ui.theme.md_theme_light_primaryContainer
+import com.edurda77.cryptostockmarket.ui.theme.md_theme_light_secondary
 
 @Composable
 fun CryptoCoinItem(
@@ -27,24 +27,26 @@ fun CryptoCoinItem(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(4.dp)
+            .fillMaxWidth()
             .clip(shape = RoundedCornerShape(4.dp))
-            .background(color = md_theme_light_primary)
+            .shadow(elevation = 4.dp)
+            //.border(width = 1.dp, color = md_theme_light_secondary)
+            .background(color = md_theme_light_inversePrimary)
             .clickable {
                 //TO-DO
             }
     ) {
         Text(
             modifier = Modifier
-                .padding(start = 4.dp),
+                .padding(start = 4.dp, top = 4.dp),
             text = coin.symbol,
             color = MaterialTheme.colors.onSurface,
             fontSize = 24.sp
         )
         Text(
             modifier = Modifier
-                .padding(start = 4.dp),
+                .padding(start = 4.dp, bottom = 4.dp),
             text = coin.name,
             color = MaterialTheme.colors.onSurface,
             fontSize = 20.sp

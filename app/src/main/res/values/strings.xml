@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CryptoStockMarket</string>
+    <string name="search">Поиск…</string>
+    <string name="sort">Сортировка</string>
+    <string name="name">По названию</string>
+    <string name="symbol">По аббривиатуре</string>
+    <string name="ascend">По возрастанию</string>
+    <string name="descend">По убыванию</string>
 </resources>
