@@ -40,7 +40,6 @@ class CryptoListViewModel @Inject constructor(private val getCoins: GetCoins) : 
                 getCoins(coinOrder = event.coinOrder)
             }
             is CryptoCoinsEvent.Refresh -> {
-
                 getCoins(
                     isRefresh = true,
                     search = ""

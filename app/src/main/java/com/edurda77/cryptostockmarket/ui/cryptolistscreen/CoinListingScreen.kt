@@ -48,6 +48,15 @@ fun CoinListingScreen(
                 focusedBorderColor = md_theme_light_primary,
                 unfocusedBorderColor = md_theme_light_primary)
         )
+        OrderSection(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            coinOrder = state.coinOrder,
+            onOrderChange = {
+                viewModel.onEvent(CryptoCoinsEvent.Order(it))
+            }
+        )
         SwipeRefresh(
             state = swipeRefreshState,
             onRefresh = {

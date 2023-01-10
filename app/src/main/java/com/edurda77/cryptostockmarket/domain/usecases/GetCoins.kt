@@ -29,7 +29,7 @@ class GetCoins @Inject constructor (private val repository: Repository) {
                                         emit(Resource.Success(resource.data?.sortedBy { it.symbol.lowercase() }))
                                     }
                                     is CoinOrder.Name -> {
-                                        resource.data?.sortedBy { it.name.lowercase().lowercase() }
+                                        emit(Resource.Success(resource.data?.sortedBy { it.name.lowercase() }))
                                     }
                                 }
                             }
@@ -39,7 +39,7 @@ class GetCoins @Inject constructor (private val repository: Repository) {
                                         emit(Resource.Success(resource.data?.sortedByDescending { it.symbol.lowercase() }))
                                     }
                                     is CoinOrder.Name -> {
-                                        resource.data?.sortedByDescending { it.name.lowercase().lowercase() }
+                                        emit(Resource.Success(resource.data?.sortedByDescending { it.name.lowercase() }))
                                     }
                                 }
                             }
