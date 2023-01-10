@@ -20,12 +20,12 @@ kotlin {
 
 android {
     namespace 'com.edurda77.cryptostockmarket'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.edurda77.cryptostockmarket"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -72,9 +72,12 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
 
+
+    implementation "androidx.compose.material3:material3:1.0.1"
+    implementation "androidx.compose.material3:material3-window-size-class:1.0.1"
+
     // Compose dependencies
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
-    implementation "androidx.compose.material:material-icons-extended:2.5.1"
     implementation "androidx.activity:activity-compose:1.7.0-alpha02"
     implementation "com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha"
 
@@ -85,7 +88,6 @@ dependencies {
     //Dagger - Hilt
     implementation "com.google.dagger:hilt-android:2.43.2"
     kapt "com.google.dagger:hilt-android-compiler:2.43.2"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
     kapt "androidx.hilt:hilt-compiler:1.0.0"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 

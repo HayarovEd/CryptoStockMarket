@@ -19,8 +19,6 @@ data class CoinByIdDto(
     val countryOrigin: String,
     @SerializedName("description")
     val description: Description,
-    @SerializedName("detail_platforms")
-    val detailPlatforms: DetailPlatforms,
     @SerializedName("developer_score")
     val developerScore: Double,
     @SerializedName("genesis_date")

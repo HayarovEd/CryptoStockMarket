@@ -10,6 +10,7 @@ import com.edurda77.cryptostockmarket.domain.util.CoinOrder
 import com.edurda77.cryptostockmarket.domain.util.OrderType
 import com.edurda77.cryptostockmarket.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Delay
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -18,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CryptoListViewModel @Inject constructor(private val getCoins: GetCoins) : ViewModel() {
-    private var state by mutableStateOf(CryptoListState())
+    var state by mutableStateOf(CryptoListState())
 
     private var getCoinsJob: Job? = null
 
@@ -30,50 +31,52 @@ class CryptoListViewModel @Inject constructor(private val getCoins: GetCoins) : 
         when (event) {
             is CryptoCoinsEvent.OnSearch -> {
                 state = state.copy(searchQuery = event.query)
-                getCoinsJob?.cancel()
-                getCoinsJob = viewModelScope.launch {
-                    getCoins(search = event.query, isRefresh = false)
-                }
+                getCoins(search = event.query)
             }
             is CryptoCoinsEvent.Order -> {
-                state = state.copy(coinOrder = event.coinOrder)
-                getCoinsJob?.cancel()
-                getCoinsJob = viewModelScope.launch {
-                    getCoins(coinOrder = event.coinOrder, isRefresh = false)
+                if (state.coinOrder::class == event.coinOrder::class && state.coinOrder.orderType == event.coinOrder.orderType) {
+                    return
                 }
+                getCoins(coinOrder = event.coinOrder)
             }
-            is CryptoCoinsEvent.Rerfresh -> {
-                getCoins(isRefresh = true)
+            is CryptoCoinsEvent.Refresh -> {
+
+                getCoins(
+                    isRefresh = true,
+                    search = ""
+                )
             }
         }
     }
 
     private fun getCoins(
         coinOrder: CoinOrder = state.coinOrder,
-        isRefresh: Boolean,
+        isRefresh: Boolean = false,
         search: String = state.searchQuery.lowercase()
     ) {
         getCoinsJob?.cancel()
         state = state.copy(isloading = true)
         viewModelScope.launch {
-            getCoinsJob = getCoins.invoke(coinOrder, isRefresh, search)
-                .onEach { result ->
-                    when (result) {
-                        is Resource.Success -> {
-                            state = state.copy(
-                                isloading = false,
-                                cryptoCoins = result.data ?: emptyList()
-                            )
-                        }
-                        is Resource.Error -> {
-                            state = state.copy(
-                                isloading = false,
-                                error = result.message
-                            )
+            getCoinsJob =
+                getCoins.invoke(coinOrder = coinOrder, fetchFromRemote = isRefresh, query = search)
+                    .onEach { result ->
+                        state = when (result) {
+                            is Resource.Success -> {
+                                state.copy(
+                                    isloading = false,
+                                    cryptoCoins = result.data ?: emptyList(),
+                                    coinOrder = coinOrder
+                                )
+                            }
+                            is Resource.Error -> {
+                                state.copy(
+                                    isloading = false,
+                                    error = result.message
+                                )
+                            }
                         }
                     }
-                }
-                .launchIn(viewModelScope)
+                    .launchIn(viewModelScope)
         }
     }
 }
